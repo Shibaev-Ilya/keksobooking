@@ -1,6 +1,7 @@
 import {creaateOffers} from './create-objects.js';
 import {createCard, mapCanvas} from './generator.js';
 import {formValidation, mainForm} from './validation.js'
+import {activatePage} from "./page-activator.js";
 
 let offers = creaateOffers(4);
 
@@ -15,3 +16,5 @@ window.onload = function() {
   formValidation(mainForm);
 
 };
+
+activatePage(false);

@@ -22,4 +22,4 @@ export let formValidation = (form) => {
 
 
   });
-}
+};
