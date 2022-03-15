@@ -7,7 +7,7 @@ export let createCard = (data) => {
   let {author, offer, location} = data;
   const cardElement = cardTemplate.cloneNode(true);
   let featuresContainer = cardElement.querySelector('.popup__features');
-  let fatureList = featuresContainer.querySelectorAll('.popup__feature');
+  let featureList = featuresContainer.querySelectorAll('.popup__feature');
   let featureArr = offer.features;
   let photosContainer = cardElement.querySelector('.popup__photos');
   let srcArray = offer.photos;
@@ -24,7 +24,7 @@ export let createCard = (data) => {
 
   photosContainer.append(similarListFragment);
 
-  fatureList.forEach((element) => {
+  featureList.forEach((element) => {
 
     const isNecessary = featureArr.some(
       (featureELement) => element.classList.contains('popup__feature--' + featureELement),
@@ -46,4 +46,4 @@ export let createCard = (data) => {
   cardElement.querySelector(".popup__avatar").src = author.avatar;
 
   return cardElement;
-}
+};

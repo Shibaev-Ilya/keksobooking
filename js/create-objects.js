@@ -16,12 +16,12 @@ const PHOTOS = [
 ];
 
 // Генерация данных
-const createObject = (imgNumder) => {
+const createObject = (imgNumber) => {
 
     let locationLat = getRandomPositiveFloat(35.65000, 35.70000, 5);
     let locationLng = getRandomPositiveFloat(139.70000, 139.80000, 5);
 
-    let imageName = imgNumder + 1;
+    let imageName = imgNumber + 1;
     if (imageName < 10) {
         imageName = `user0${imageName}.png`;
     } else {
@@ -43,7 +43,7 @@ const createObject = (imgNumder) => {
             'checkout': getRandomArrayElement(TIMES),
             'features': getRandomArray(FEATURES),
             'description': `Описание помещения ${getRandomPositiveInteger(1, 100)}`,
-            'photos': getRandomArray(PHOTOS),
+            'photos': PHOTOS,
         },
         'location': {
             'lat': locationLat,
@@ -54,7 +54,7 @@ const createObject = (imgNumder) => {
 
 };
 
-let creaateOffers = (count) => {
+let createOffers = (count) => {
   let offersArray = [];
   for (let i = 0; i < count; i++) {
     offersArray[i] = createObject(i);
@@ -62,4 +62,4 @@ let creaateOffers = (count) => {
   return offersArray;
 };
 
-export {creaateOffers};
+export {createOffers};

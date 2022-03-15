@@ -57,23 +57,23 @@ const getRandomArrayElement = (data) => {
 
   return arrKeys[getRandomPositiveInteger(0, arrKeys.length - 1)]
 
-}
+};
 // возвращает массив случайной длинны из неповторяющихся значений
 const getRandomArray = (arr) => {
 
-  let copyArr = arr.slice();
   let newArr = [];
+  let randomLength = getRandomPositiveInteger(0, arr.length -1);
 
-  if (getRandomPositiveInteger(0, copyArr.length - 1) === copyArr.length -1 ) {
-    return copyArr;
+  if (randomLength === arr.length-1) {
+    return arr;
   }
 
-  for (let i = 0; i <= getRandomPositiveInteger(0, copyArr.length - 1); i++) {
-      newArr[i] = copyArr.splice(getRandomPositiveInteger(0, copyArr.length - 1), 1).join();
+  for (let i = 0; i <= randomLength; i++) {
+    newArr[i] = arr[getRandomPositiveInteger(0, arr.length - 1)];
   }
+console.log(Array.from(new Set(newArr)));
+  return Array.from(new Set(newArr));
 
-  return newArr;
-
-}
+};
 
 export {getRandomPositiveInteger, getRandomPositiveFloat, getRandomArrayElement, getRandomArray};

@@ -1,9 +1,9 @@
-import {creaateOffers} from './create-objects.js';
+import {createOffers} from './create-objects.js';
 import {createCard, mapCanvas} from './generator.js';
 import {formValidation, mainForm} from './validation.js'
 import {activatePage} from "./page-activator.js";
 
-let offers = creaateOffers(4);
+let offers = createOffers(5);
 
 const similarListFragment = document.createDocumentFragment();
 
@@ -17,4 +17,4 @@ window.onload = function() {
 
 };
 
-activatePage(false);
+activatePage(true);
