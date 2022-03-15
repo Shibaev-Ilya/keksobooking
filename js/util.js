@@ -71,7 +71,7 @@ const getRandomArray = (arr) => {
   for (let i = 0; i <= randomLength; i++) {
     newArr[i] = arr[getRandomPositiveInteger(0, arr.length - 1)];
   }
-console.log(Array.from(new Set(newArr)));
+
   return Array.from(new Set(newArr));
 
 };

@@ -43,7 +43,7 @@ const createObject = (imgNumber) => {
             'checkout': getRandomArrayElement(TIMES),
             'features': getRandomArray(FEATURES),
             'description': `Описание помещения ${getRandomPositiveInteger(1, 100)}`,
-            'photos': PHOTOS,
+            'photos': getRandomArray(PHOTOS),
         },
         'location': {
             'lat': locationLat,
