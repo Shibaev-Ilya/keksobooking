@@ -71,7 +71,7 @@
     <!-- Форма объявления -->
     <section class="notice">
       <h2 class="notice__title">Ваше объявление</h2>
-      <form class="ad-form" method="post" enctype="multipart/form-data" autocomplete="off" id="form1">
+      <form class="ad-form" method="post" enctype="multipart/form-data" action="https://25.javascript.pages.academy/keksobooking" autocomplete="off" id="form1">
         <fieldset class="ad-form-header">
           <legend class="ad-form-header__title">Ваша фотография (для карты)</legend>
           <div class="ad-form-header__upload">
@@ -89,7 +89,7 @@
           <label class="ad-form__label" for="title">Заголовок объявления</label>
           <input id="title" name="title" type="text"
           placeholder="Милая, уютная квартирка в центре Токио"
-          minlength="5" maxlength="20" required
+          minlength="30" maxlength="100" required
           data-pristine-required-message="Please choose a offer name">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
@@ -108,7 +108,7 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required>
+          <input id="price" name="price" type="number" placeholder="1000" data-pristine-min="0" max="100000" required>
           <div class="ad-form__slider"></div>
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--time">
