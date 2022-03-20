@@ -1,6 +1,6 @@
-export let mainForm = document.querySelector(".ad-form");
+let mainForm = document.querySelector(".ad-form");
 
-export let formValidation = (form) => {
+let formValidation = (form) => {
 
   let pristineConfig = {
     classTo: 'ad-form__element',
@@ -68,4 +68,9 @@ export let formValidation = (form) => {
   let checkCapacity = (value) => allowedGuests[roomNumber.value].includes(value);
   pristine.addValidator(capacity, checkCapacity, capacityErrorMessage);
 
+};
+
+// валидация формы при загрузке окна
+window.onload = function() {
+  formValidation(mainForm);
 };
