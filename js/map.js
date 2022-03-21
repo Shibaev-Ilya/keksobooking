@@ -1,9 +1,14 @@
+import {createCard, mapCanvas} from './generator.js';
+import {createOffers} from "./create-objects.js";
 const mapCenter = {
   lat: 35.68172,
   lng: 139.75392,
 };
 const inputAddress = document.querySelector('#address');
 const resetButton = document.querySelector('[type="reset"]');
+
+// создаем массив с апартаментами
+let offers = createOffers(30);
 
 // блокируем для ручного ввода
 inputAddress.readOnly = true;
@@ -22,7 +27,7 @@ export let mapInit = (activateForms) => {
     },
   ).addTo(map);
 
-  // кастомная иконка маркера
+  // кастомная иконка главного маркера
   let myIcon = L.icon({
     iconUrl: 'img/main-pin.svg',
     iconSize: [38, 38],
@@ -46,8 +51,37 @@ export let mapInit = (activateForms) => {
     inputAddress.value = `${coords['lat'].toFixed(5)}, ${coords['lng'].toFixed(5)}`;
   });
 
+  // кастомная иконка маркера с офферами
+  let offerMarker = L.icon({
+    iconUrl: 'img/pin.svg',
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+    popupAnchor: [0, -15],
+  });
+
+  //создаем слой с группой маркеров
+  const markerGroup = L.layerGroup().addTo(map);
+  // перебираем массив с объявлениями, добавляем метку и попап на карту
+  offers.forEach((el) => {
+    let {location} = el;
+    let popupCard = createCard(el);
+    const marker = L.marker({
+      lat: location['lat'],
+      lng: location['lng']
+    },
+      {
+        icon: offerMarker
+      });
+    //добавляем слой с группой маркеров
+    marker.addTo(markerGroup).bindPopup(popupCard);
+  });
+
+  //удаляем слой с группой маркеров
+  //markerGroup.clearLayers();
+
   resetButton.addEventListener('click', () => {
     marker.setLatLng(mapCenter);
+    map.setView(mapCenter, 13);
   });
 
 };
