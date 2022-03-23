@@ -1,5 +1,7 @@
-let mainForm = document.querySelector(".ad-form");
+import {slider} from "./price-slider.js";
 
+let mainForm = document.querySelector(".ad-form");
+let minPrice = 0;
 let formValidation = (form) => {
 
   let pristineConfig = {
@@ -46,6 +48,19 @@ let formValidation = (form) => {
   let changePricePlaceholder = () => {
     inputPrice.placeholder = minPrices[selectType.value];
     inputPrice.setAttribute('data-pristine-min', minPrices[selectType.value]);
+
+    minPrice = parseInt(inputPrice.placeholder);
+    // обновляем данные слайдера при смене типа жилья
+    slider.noUiSlider.updateOptions({
+      range: {
+        min: minPrice,
+        max: 100000,
+      },
+      step: 1,
+    });
+// устанавливаем ручку слайдера в новую позицию после смены
+    slider.noUiSlider.set(minPrice);
+
   };
   selectType.addEventListener('change', changePricePlaceholder);
 
