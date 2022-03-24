@@ -6,7 +6,7 @@ const mapCenter = {
 };
 const inputAddress = document.querySelector('#address');
 const resetButton = document.querySelector('[type="reset"]');
-
+const mainForm = document.querySelector('#form1');
 // создаем массив с апартаментами
 let offers = createOffers(30);
 
@@ -45,6 +45,8 @@ export let mapInit = (activateForms) => {
   // добавляем маркер на карту
   marker.addTo(map);
 
+  inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
+
   // меняем инпут в зависимости от положения маркера
   marker.on('moveend', (evt) => {
     let coords = evt.target.getLatLng();
@@ -79,9 +81,12 @@ export let mapInit = (activateForms) => {
   //удаляем слой с группой маркеров
   //markerGroup.clearLayers();
 
-  resetButton.addEventListener('click', () => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    mainForm.reset();
     marker.setLatLng(mapCenter);
     map.setView(mapCenter, 13);
+    inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
   });
 
 };

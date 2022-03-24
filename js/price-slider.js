@@ -28,7 +28,7 @@ export let createPriceSlider = () => {
 createPriceSlider();
 
 // получем значение слайдера и записываем в инпут
-slider.noUiSlider.on('update', () => {
+slider.noUiSlider.on('slide', () => {
   inputPrice.value = slider.noUiSlider.get();
 });
 
