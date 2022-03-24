@@ -9,6 +9,7 @@ const resetButton = document.querySelector('[type="reset"]');
 const mainForm = document.querySelector('#form1');
 // создаем массив с апартаментами
 let offers = createOffers(30);
+let filterForm = document.querySelector('.map__filters');
 
 // блокируем для ручного ввода
 inputAddress.readOnly = true;
@@ -84,9 +85,11 @@ export let mapInit = (activateForms) => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     mainForm.reset();
+    filterForm.reset();
     marker.setLatLng(mapCenter);
     map.setView(mapCenter, 13);
     inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
+    map.closePopup();
   });
 
 };
