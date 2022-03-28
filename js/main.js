@@ -1,11 +1,15 @@
 import './validation.js';
-import {activateForms, deactivateForms} from "./page-activator.js";
-import {mapInit} from "./map.js";
+import {deactivateForms} from "./page-activator.js";
 import "./price-slider.js";
-
+import {serverConnect, host} from "./server-connect.js";
 
 // блокировка форм
 deactivateForms();
 
-// инициализация карты и активация форм
-mapInit(activateForms);
+// получение данных с сервера и инициализация карты
+serverConnect(host);
+
+let addressFromInput = document.querySelector("#server-address");
+let addressButton = document.querySelector("#server-address-button");
+addressFromInput.value = host;
+
