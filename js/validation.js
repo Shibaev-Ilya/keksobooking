@@ -1,6 +1,8 @@
 import {slider} from "./price-slider.js";
+import {sendData} from "./server-connect.js";
+import {createErrorMessage, successMessage, errorMessage} from "./generator.js";
 
-let mainForm = document.querySelector(".ad-form");
+let mainForm = document.querySelector("#form1");
 let minPrice = 0;
 let formValidation = (form) => {
 
@@ -66,11 +68,20 @@ let formValidation = (form) => {
 
   // create the pristine instance
   let pristine = new Pristine(form, pristineConfig);
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     // check if the form is valid
     let valid = pristine.validate(); // returns true or false
-    if (valid) form.submit();
+    let form = new FormData(e.target);
+    if (valid) {
+      sendData(
+        successMessage,
+        errorMessage,
+        form
+      );
+      console.log(form);
+    }
   });
 
   // валидация поля цена за ночь на основе типа жилья

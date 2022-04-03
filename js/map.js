@@ -1,4 +1,5 @@
-import {createCard, mapCanvas} from './generator.js';
+import {createCard} from './generator.js';
+import {activateForms} from "./page-activator.js";
 
 const mapCenter = {
   lat: 35.68172,
@@ -12,10 +13,27 @@ let filterForm = document.querySelector('.map__filters');
 // блокируем для ручного ввода
 inputAddress.readOnly = true;
 
-export let mapInit = (activateForms, data) => {
-  // создаем карту
-  const map = L.map('map-canvas')
-    .on('load', activateForms)
+// создаем карту
+const map = L.map('map-canvas');
+// кастомная иконка главного маркера
+let myIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [38, 38],
+  iconAnchor: [19, 37],
+  //popupAnchor: [-3, -76],
+});
+// создаем draggable маркер
+let marker = L.marker(
+  mapCenter,
+  {
+    draggable: true,
+    icon: myIcon
+  }
+);
+
+export let mapInit = (activateForms) => {
+
+  map.on('load', activateForms)
     .setView(mapCenter, 13);
 
   // добавляем слои карты с openstreetmap
@@ -26,21 +44,6 @@ export let mapInit = (activateForms, data) => {
     },
   ).addTo(map);
 
-  // кастомная иконка главного маркера
-  let myIcon = L.icon({
-    iconUrl: 'img/main-pin.svg',
-    iconSize: [38, 38],
-    iconAnchor: [19, 37],
-    //popupAnchor: [-3, -76],
-  });
-  // создаем draggable маркер
-  let marker = L.marker(
-    mapCenter,
-    {
-      draggable: true,
-      icon: myIcon
-    }
-  );
   // добавляем маркер на карту
   marker.addTo(map);
 
@@ -52,6 +55,17 @@ export let mapInit = (activateForms, data) => {
     inputAddress.value = `${coords['lat'].toFixed(5)}, ${coords['lng'].toFixed(5)}`;
   });
 
+  //удаляем слой с группой маркеров
+  //markerGroup.clearLayers();
+
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetForms();
+  });
+
+};
+
+export let addOffers = (data) => {
   // кастомная иконка маркера с офферами
   let offerMarker = L.icon({
     iconUrl: 'img/pin.svg',
@@ -78,18 +92,13 @@ export let mapInit = (activateForms, data) => {
       marker.addTo(markerGroup).bindPopup(popupCard);
     });
   }
+};
 
-  //удаляем слой с группой маркеров
-  //markerGroup.clearLayers();
-
-  resetButton.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    mainForm.reset();
-    filterForm.reset();
-    marker.setLatLng(mapCenter);
-    map.setView(mapCenter, 13);
-    inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
-    map.closePopup();
-  });
-
+export const resetForms = () => {
+  mainForm.reset();
+  filterForm.reset();
+  marker.setLatLng(mapCenter);
+  map.setView(mapCenter, 13);
+  inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
+  map.closePopup();
 };

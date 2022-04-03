@@ -1070,13 +1070,3 @@ fieldset {
 .address-wrapper:hover .address-wrapper__tip {
   display: block;
 }
-
-.server-info {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.server-info input {
-  width: 420px;
-}

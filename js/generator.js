@@ -3,6 +3,7 @@ import {TYPE} from './create-objects.js';
 export const mapCanvas = document.querySelector("#map-canvas");
 const cardTemplate = document.querySelector("#card").content.querySelector(".popup");
 const errorPopup = document.querySelector("#error").content.querySelector(".error");
+const successPopup = document.querySelector("#success").content.querySelector(".success");
 
 export let createCard = (data) => {
   let {author, offer, location} = data;
@@ -28,7 +29,7 @@ export let createCard = (data) => {
   featureList.forEach((element) => {
 
     const isNecessary = featureArr.some(
-      (featureELement) => element.classList.contains('popup__feature--' + featureELement),
+      (featureElement) => element.classList.contains('popup__feature--' + featureElement),
     );
 
     if (!isNecessary) {
@@ -49,12 +50,42 @@ export let createCard = (data) => {
   return cardElement;
 };
 
-export let createErrorMessage = (errorText) => {
+export let createErrorMessage = (errorText = 'done') => {
+
+  let alarm = document.createElement('div');
+  alarm.style.backgroundColor = "#ff6547";
+  alarm.style.position = "fixed";
+  alarm.style.top = "0";
+  alarm.style.left = "0";
+  alarm.style.textAlign = "center";
+  alarm.style.fontWeight = "700";
+  alarm.style.padding = "20px 30px";
+  alarm.textContent = `${errorText}. Try later`;
+
+  document.body.append(alarm);
+
+  setTimeout(() => alarm.remove(), 3000);
+
+};
+
+export let successMessage = () => {
+  let popup = successPopup.cloneNode(true);
+  onForm(popup);
+};
+
+export let errorMessage = () => {
   let popup = errorPopup.cloneNode(true);
-  popup.querySelector(".error__message").textContent = `Ошибка ${errorText}, попробуйте позже`;
-  popup.querySelector(".error__button").textContent = 'ok';
-  popup.querySelector(".error__button").addEventListener('click', () => {
-    popup.style.display = 'none';
+  onForm(popup);
+};
+
+let onForm = (popup) => {
+  popup.addEventListener('click', () => {
+    popup.remove();
+  });
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      popup.remove();
+    }
   });
   document.body.append(popup);
 };

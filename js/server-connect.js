@@ -1,17 +1,33 @@
-import {createErrorMessage} from "./generator.js";
-import {mapInit} from "./map.js";
-import {activateForms} from "./page-activator.js";
-export let host = 'https://25.javascript.pages.academy/keksobooking/data';
+import {resetForms} from "./map.js";
 
-export let serverConnect = (address) => {
-  fetch(address)
+export const getData = (onError, onSuccess) => {
+  fetch('https://25.javascript.pages.academy/keksobooking/data')
     .then((result) => {
       if (!result.ok) {
-        createErrorMessage(result.status);
+        onError(`${result.status}`);
       } else {
         return result.json()
       }
     })
-    .then(data => mapInit(activateForms, data))
-    .catch(error => console.warn(error));
+    .then(data => onSuccess(data))
+    .catch(error => onError(error));
+};
+
+export const sendData = (onSuccess, onFail, body) => {
+  fetch('https://25.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body: body,
+    }
+    )
+    .then(result => {
+      if (result.ok) {
+        onSuccess();
+        resetForms();
+      } else {
+        onFail();
+        console.log(result);
+      }
+    })
+    .catch(() => onFail());
 };
