@@ -4,6 +4,7 @@ import {createErrorMessage} from "./generator.js";
 import "./price-slider.js";
 import {mapInit, addOffers} from "./map.js";
 import {getData} from "./server-connect.js";
+import "./file.js";
 
 // блокировка форм
 deactivateForms();
