@@ -9,9 +9,11 @@ export let deactivateForms = () => {
 };
 
 export let activateForms = () => {
-    mapFilters.classList.remove('map__filters--disabled');
-    mapFilters.querySelectorAll('.map__filter').forEach((select) => select.disabled = false);
-
     adForm.classList.remove('ad-form--disabled');
     adForm.querySelectorAll('input, select, textarea, button').forEach((select) => select.disabled = false);
+};
+
+export let activateFilters = () => {
+  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.querySelectorAll('.map__filter').forEach((select) => select.disabled = false);
 };

@@ -1,5 +1,6 @@
 import {createCard} from './generator.js';
-import {activateForms} from "./page-activator.js";
+import {activateFilters} from "./page-activator.js";
+import {resetHandles} from "./validation.js";
 
 const mapCenter = {
   lat: 35.68172,
@@ -60,6 +61,7 @@ export let mapInit = (activateForms) => {
 
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
+    resetHandles();
     resetForms();
   });
 
@@ -78,6 +80,7 @@ export let addOffers = (data) => {
   const markerGroup = L.layerGroup().addTo(map);
   // перебираем массив с объявлениями, добавляем метку и попап на карту
   if (data) {
+    activateFilters();
     data.forEach((el) => {
       let {location} = el;
       let popupCard = createCard(el);
@@ -101,4 +104,5 @@ export const resetForms = () => {
   map.setView(mapCenter, 13);
   inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
   map.closePopup();
+  resetHandles();
 };

@@ -1,40 +1,40 @@
 import {slider} from "./price-slider.js";
 import {sendData} from "./server-connect.js";
-import {createErrorMessage, successMessage, errorMessage} from "./generator.js";
+import {successMessage, errorMessage} from "./generator.js";
 
 let mainForm = document.querySelector("#form1");
 let minPrice = 0;
-let formValidation = (form) => {
+let pristineConfig = {
+  classTo: 'ad-form__element',
+  errorClass: 'has-danger',
+  successClass: 'has-success',
+  errorTextParent: 'ad-form__element',
+  errorTextTag: 'div',
+  errorTextClass: 'text-help'
+};
+const minPrices = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
+const allowedGuests = {
+  100: ['0'],
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+};
+const inputPrice = mainForm.querySelector('#price');
+const selectType = mainForm.querySelector('#type');
+const timeWrapper = mainForm.querySelector('.ad-form__element--time');
+const timeIn = mainForm.querySelector('#timein');
+const timeout = mainForm.querySelector('#timeout');
+const capacity = mainForm.querySelector('#capacity');
+const roomNumber = mainForm.querySelector('#room_number');
+const defaultPlaceholder = inputPrice.placeholder;
 
-  let pristineConfig = {
-    classTo: 'ad-form__element',
-    errorClass: 'has-danger',
-    successClass: 'has-success',
-    errorTextParent: 'ad-form__element',
-    errorTextTag: 'div',
-    errorTextClass: 'text-help'
-  };
-
-  const inputPrice = form.querySelector('#price');
-  const selectType = form.querySelector('#type');
-  const timeWrapper = form.querySelector('.ad-form__element--time');
-  const timeIn = form.querySelector('#timein');
-  const timeout = form.querySelector('#timeout');
-  const capacity = form.querySelector('#capacity');
-  const roomNumber = form.querySelector('#room_number');
-  const minPrices = {
-    'bungalow': 0,
-    'flat': 1000,
-    'hotel': 3000,
-    'house': 5000,
-    'palace': 10000,
-  };
-  const allowedGuests = {
-    100: ['0'],
-    1: ['1'],
-    2: ['1', '2'],
-    3: ['1', '2', '3'],
-  };
+let formValidation = () => {
 
   // смена Время заезда и выезда
   timeWrapper.addEventListener('change', (evt) => {
@@ -64,12 +64,13 @@ let formValidation = (form) => {
     slider.noUiSlider.set(minPrice);
 
   };
+
   selectType.addEventListener('change', changePricePlaceholder);
 
   // create the pristine instance
-  let pristine = new Pristine(form, pristineConfig);
+  let pristine = new Pristine(mainForm, pristineConfig);
 
-  form.addEventListener('submit', function (e) {
+  mainForm.addEventListener('submit', function (e) {
     e.preventDefault();
     // check if the form is valid
     let valid = pristine.validate(); // returns true or false
@@ -80,7 +81,6 @@ let formValidation = (form) => {
         errorMessage,
         form
       );
-      console.log(form);
     }
   });
 
@@ -99,4 +99,10 @@ let formValidation = (form) => {
 // валидация формы при загрузке окна
 window.onload = function() {
   formValidation(mainForm);
+};
+
+// сброс ручки слайдера
+export let resetHandles = () => {
+  slider.noUiSlider.set(minPrice);
+  inputPrice.placeholder = defaultPlaceholder;
 };

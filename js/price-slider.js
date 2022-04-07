@@ -1,6 +1,5 @@
 export const slider = document.querySelector('.ad-form__slider');
 const inputPrice = document.querySelector('#price');
-const selectType = document.querySelector('#type');
 let initialValue = parseInt(inputPrice.getAttribute('placeholder'));
 
 export let createPriceSlider = () => {

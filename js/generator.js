@@ -1,6 +1,5 @@
-import {TYPE} from './create-objects.js';
+import {TYPE} from './util.js';
 
-export const mapCanvas = document.querySelector("#map-canvas");
 const cardTemplate = document.querySelector("#card").content.querySelector(".popup");
 const errorPopup = document.querySelector("#error").content.querySelector(".error");
 const successPopup = document.querySelector("#success").content.querySelector(".success");
@@ -50,7 +49,8 @@ export let createCard = (data) => {
   return cardElement;
 };
 
-export let createErrorMessage = (errorText = 'done') => {
+// всплывающее сообщение об ошибке на 3 сек
+export let alertMessage = (errorText = 'done') => {
 
   let alarm = document.createElement('div');
   alarm.style.backgroundColor = "#ff6547";
@@ -78,6 +78,7 @@ export let errorMessage = () => {
   onForm(popup);
 };
 
+// добавить попап и навесить на него обработчики его закрытия
 let onForm = (popup) => {
   popup.addEventListener('click', () => {
     popup.remove();
