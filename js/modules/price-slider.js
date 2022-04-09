@@ -1,6 +1,8 @@
 export const slider = document.querySelector('.ad-form__slider');
 const inputPrice = document.querySelector('#price');
 let initialValue = parseInt(inputPrice.getAttribute('placeholder'));
+const defaultPlaceholder = inputPrice.placeholder;
+let minPrice = parseInt(inputPrice.placeholder);
 
 export let createPriceSlider = () => {
   noUiSlider.create(slider, {
@@ -34,3 +36,9 @@ slider.noUiSlider.on('slide', () => {
 // активация и деактивация слацдера
 //slider.setAttribute('disabled', true);
 // slider.removeAttribute('disabled');
+
+// сброс ручки слайдера
+export let resetHandles = () => {
+  slider.noUiSlider.set(minPrice);
+  inputPrice.placeholder = defaultPlaceholder;
+};

@@ -1,6 +1,6 @@
 import {createCard} from './generator.js';
 import {activateFilters} from "./page-activator.js";
-import {resetHandles} from "./validation.js";
+import {resetHandles} from "./price-slider.js";
 
 const mapCenter = {
   lat: 35.68172,
@@ -56,9 +56,6 @@ export let mapInit = (activateForms) => {
     inputAddress.value = `${coords['lat'].toFixed(5)}, ${coords['lng'].toFixed(5)}`;
   });
 
-  //удаляем слой с группой маркеров
-  //markerGroup.clearLayers();
-
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     resetHandles();
@@ -66,6 +63,9 @@ export let mapInit = (activateForms) => {
   });
 
 };
+
+//создаем слой с группой маркеров
+const markerGroup = L.layerGroup().addTo(map);
 
 export let addOffers = (data) => {
   // кастомная иконка маркера с офферами
@@ -76,10 +76,9 @@ export let addOffers = (data) => {
     popupAnchor: [0, -15],
   });
 
-  //создаем слой с группой маркеров
-  const markerGroup = L.layerGroup().addTo(map);
   // перебираем массив с объявлениями, добавляем метку и попап на карту
   if (data) {
+    markerGroup.clearLayers();
     activateFilters();
     data.forEach((el) => {
       let {location} = el;

@@ -32,7 +32,6 @@ const timeIn = mainForm.querySelector('#timein');
 const timeout = mainForm.querySelector('#timeout');
 const capacity = mainForm.querySelector('#capacity');
 const roomNumber = mainForm.querySelector('#room_number');
-const defaultPlaceholder = inputPrice.placeholder;
 
 let formValidation = () => {
 
@@ -99,10 +98,4 @@ let formValidation = () => {
 // валидация формы при загрузке окна
 window.onload = function() {
   formValidation(mainForm);
-};
-
-// сброс ручки слайдера
-export let resetHandles = () => {
-  slider.noUiSlider.set(minPrice);
-  inputPrice.placeholder = defaultPlaceholder;
 };
