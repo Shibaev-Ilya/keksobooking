@@ -2,7 +2,7 @@ const selectType = document.querySelector('#housing-type');
 const selectPrice = document.querySelector('#housing-price');
 const selectRooms = document.querySelector('#housing-rooms');
 const selectGuests = document.querySelector('#housing-guests');
-const featureButtons = document.querySelectorAll('.map__checkbox');
+const featureButtons = Array.from(document.querySelectorAll('.map__checkbox'));
 
 const mapFilter = document.querySelector('.js-map__filters');
 
@@ -33,10 +33,10 @@ let checkGuests = element => element['offer']['guests'] === +selectGuests.value 
 let checkFeatures = (element, target) => {
   if (target.classList.contains('map__checkbox')) {
     let featuresArr = element['offer']['features'];
-    if (featuresArr) {
-      return featuresArr.some((el) => el === target.value);
-    }
+    let checkedFeatures = featureButtons.filter((el) => el.checked).map((el) => el.value);
+    return checkedFeatures.every((checkedFeature) => featuresArr && featuresArr.includes(checkedFeature));
   }
+  return true;
 };
 
 export let filterType = (data, cb) => {

@@ -10,6 +10,7 @@ const inputAddress = document.querySelector('#address');
 const resetButton = document.querySelector('[type="reset"]');
 const mainForm = document.querySelector('#form1');
 let filterForm = document.querySelector('.map__filters');
+const AMOUNT_OFFERS = 15;
 
 // блокируем для ручного ввода
 inputAddress.readOnly = true;
@@ -80,7 +81,8 @@ export let addOffers = (data) => {
   if (data) {
     markerGroup.clearLayers();
     activateFilters();
-    data.forEach((el) => {
+    let shortArray = data.slice(0, AMOUNT_OFFERS);
+    shortArray.forEach((el) => {
       let {location} = el;
       let popupCard = createCard(el);
       const marker = L.marker({
