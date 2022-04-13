@@ -1070,3 +1070,21 @@ fieldset {
 .address-wrapper:hover .address-wrapper__tip {
   display: block;
 }
+
+#clear-filter {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #ff6547;
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+}
+
+#clear-filter:hover {
+  background-color: #ab4430;
+}

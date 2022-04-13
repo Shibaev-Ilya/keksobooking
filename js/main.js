@@ -17,6 +17,7 @@ mapInit(activateForms);
 
 // получение данных с сервера и добавляем метки на карту
 getData(alertMessage, (wizards) => {
+  console.log(wizards[1]);
   addOffers(wizards);
   filterType(wizards, addOffers);
   clearFilterBtn.addEventListener('click', () => addOffers(wizards))
