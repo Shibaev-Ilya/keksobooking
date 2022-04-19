@@ -1,6 +1,7 @@
 import {createCard} from './generator.js';
 import {activateFilters} from "./page-activator.js";
 import {resetHandles} from "./price-slider.js";
+import {clearFiles} from "./file.js";
 
 const mapCenter = {
   lat: 35.68172,
@@ -106,4 +107,5 @@ export const resetForms = () => {
   inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
   map.closePopup();
   resetHandles();
+  clearFiles();
 };

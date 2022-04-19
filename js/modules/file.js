@@ -37,3 +37,11 @@ photoInput.addEventListener('change', () => {
   }
 
 });
+
+export let clearFiles = () => {
+  preview.src = 'img/muffin-grey.svg';
+  let newPhoto = photoBlock.cloneNode();
+  newPhoto.style.backgroundImage = 'none';
+  photosArea.querySelectorAll('.ad-form__photo').forEach( el => el.remove());
+  photosArea.append(newPhoto);
+};
