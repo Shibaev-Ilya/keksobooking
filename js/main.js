@@ -7,6 +7,7 @@ import {getData} from "./modules/server-connect.js";
 import "./modules/file.js";
 import "./modules/filter.js"
 import {filterType} from "./modules/filter.js";
+import {clearMap} from "./modules/map.js";
 
 const clearFilterBtn = document.querySelector('#clear-filter');
 
@@ -19,7 +20,10 @@ mapInit(activateForms);
 getData(alertMessage, (wizards) => {
   addOffers(wizards);
   filterType(wizards, addOffers);
-  clearFilterBtn.addEventListener('click', () => addOffers(wizards))
+  clearFilterBtn.addEventListener('click', () => {
+    addOffers(wizards);
+    clearMap();
+  })
 });
 
 

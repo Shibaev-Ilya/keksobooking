@@ -8,7 +8,7 @@ const mapCenter = {
   lng: 139.75392,
 };
 const inputAddress = document.querySelector('#address');
-const resetButton = document.querySelector('[type="reset"]');
+const resetButton = document.querySelector('.js-reset');
 const mainForm = document.querySelector('#form1');
 let filterForm = document.querySelector('.map__filters');
 const AMOUNT_OFFERS = 15;
@@ -99,13 +99,16 @@ export let addOffers = (data) => {
   }
 };
 
-export const resetForms = () => {
-  mainForm.reset();
-  filterForm.reset();
+export const clearMap = () => {
   marker.setLatLng(mapCenter);
   map.setView(mapCenter, 13);
   inputAddress.value = `${mapCenter.lat}, ${mapCenter.lng}`;
   map.closePopup();
+};
+
+export const resetForms = () => {
+  mainForm.reset();
+  clearMap();
   resetHandles();
   clearFiles();
 };
